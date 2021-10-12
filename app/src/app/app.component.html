@@ -1,0 +1,37 @@
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <div class="container-fluid">
+    <button class="btn btn-dark btn-menu" (click)="updateStatus(!status)">
+      <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+    <div class="float-right">
+      <app-search (query)="updateParams($event, 'q')"></app-search>
+    </div>
+  </div>
+</header>
+<div class="d-flex">
+  <!-- <app-sidebar
+    [status]="status"
+    (statusEmitter)="updateStatus(!status)"
+    (filter)="updateParams($event, 'filter')"
+  ></app-sidebar> -->
+  <div id="page-content-container">
+    <div class="container-fluid">
+      <div class="row mt-2">
+        <ng-template #loadingTemplate>Loading...</ng-template>
+        <ng-template #noDataTemplate> <h2>No Items Found</h2></ng-template>
+        <ng-container *ngIf="items$ | async as items; else loadingTemplate">
+          <ng-container *ngIf="items.length > 0; else noDataTemplate">
+            <ng-container *ngFor="let item of items">
+              <div class="col-12 col-md-6">
+                <app-card [item]="item"></app-card>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <hr />
+        <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150" (scrolled)="onScroll()"></div>
+        <div *ngIf="!finished">Loading More...</div>
+      </div>
+    </div>
+  </div>
+</div>

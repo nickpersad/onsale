@@ -1,0 +1,17 @@
+<form class="d-flex">
+  <input
+    class="form-control form-control-dark w-100"
+    type="text"
+    placeholder="Search..."
+    aria-label="Search"
+    (keyup.enter)="updateQuery(search.value)"
+    #search
+  />
+  <button
+    class="btn btn-outline btn-dark"
+    type="button"
+    (click)="updateQuery(search.value)"
+  >
+    Search
+  </button>
+</form>

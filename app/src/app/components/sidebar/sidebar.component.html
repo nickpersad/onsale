@@ -1,0 +1,98 @@
+<div
+  class="bg-light border-right sticky-top-custom"
+  id="sidebar-container"
+  [ngClass]="status ? 'hide-sidebar' : 'show-sidebar'"
+>
+  <div class="float-right m-2">
+    <fa-icon
+      [icon]="faTimes"
+      (click)="updateStatus()"
+      class="btn-close"
+    ></fa-icon>
+  </div>
+  <ng-container *ngIf="metaData$ | async as metaData">
+    <form [formGroup]="formGroup" class="list-group">
+      <ngb-accordion
+        #acc="ngbAccordion"
+        activeIds="ngb-panel-0"
+        [closeOthers]="true"
+      >
+        <ngb-panel>
+          <ng-template ngbPanelHeader let-opened="opened">
+            <div class="d-flex align-items-center">
+              <button ngbPanelToggle class="btn btn-link p-0">
+                <fa-icon
+                  [icon]="opened ? faChevronDown : faChevronRight"
+                ></fa-icon>
+                Sort
+              </button>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="form-check" *ngFor="let item of sort">
+              <input
+                class="form-check-input"
+                type="radio"
+                [value]="item.value"
+                formControlName="sort"
+              />
+              <label class="form-check-label" [for]="item.label">
+                {{ item.name }}
+              </label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel *ngIf="metaData?.companies && metaData.companies.length > 0">
+          <ng-template ngbPanelHeader let-opened="opened">
+            <div class="d-flex align-items-center">
+              <button ngbPanelToggle class="btn btn-link p-0">
+                <fa-icon
+                  [icon]="opened ? faChevronDown : faChevronRight"
+                ></fa-icon>
+                Companies
+              </button>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="form-check" *ngFor="let company of metaData.companies">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="companies"
+                (change)="updateFilters($event, company, 'companies')"
+              />
+              <label class="form-check-label" [for]="company">
+                {{ company }}
+              </label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel *ngIf="metaData?.titles && metaData.titles.length > 0">
+          <ng-template ngbPanelHeader let-opened="opened">
+            <div class="d-flex align-items-center">
+              <button ngbPanelToggle class="btn btn-link p-0">
+                <fa-icon
+                  [icon]="opened ? faChevronDown : faChevronRight"
+                ></fa-icon>
+                Titles
+              </button>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="form-check" *ngFor="let title of metaData.titles">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="titles"
+                (change)="updateFilters($event, title, 'titles')"
+              />
+              <label class="form-check-label" [for]="title">
+                {{ title }}
+              </label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </form>
+  </ng-container>
+</div>

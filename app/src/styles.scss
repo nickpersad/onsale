@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+body {
+  overflow-x: hidden;
+}
+
+#sidebar-container {
+  width: 16rem;
+  min-height: calc(100vh - 38px);
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+  .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+}
+
+#page-content-container {
+  min-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  #sidebar-container {
+    margin-left: 0;
+  }
+
+  #page-content-container {
+    min-width: 0;
+    width: 100%;
+  }
+  .show-sidebar {
+    margin-left: 0 !important;
+  }
+  .hide-sidebar {
+    margin-left: -17rem !important;
+  }
+}
+@media (max-width: 767px) {
+  #sidebar-container {
+    width: 100vw;
+  }
+  .show-sidebar {
+    margin-left: -100vw !important;
+  }
+  .hide-sidebar {
+    margin-left: 0 !important;
+  }
+}

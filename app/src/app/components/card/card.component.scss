@@ -1,0 +1,11 @@
+@media (min-width: 768px) {
+  img.card-img {
+    height: 100%;
+  }
+  .card-body {
+    height: 189px;
+    .company {
+      align-self: flex-end;
+    }
+  }
+}
