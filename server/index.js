@@ -14,7 +14,7 @@ const getPublix = async () => {
         description: item.description,
         savings: item.savings,
         store: `Publix`,
-        image: item.imageUrl,
+        image: item.enhancedImageUrl,
       };
     });
     return clean;
