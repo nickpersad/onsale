@@ -4,22 +4,6 @@ const port = 3000;
 const axios = require("axios");
 
 const getPublix = async () => {
-  // Make a request to the publix servics endpoint to get the closest location
-  const location = await axios.get(
-    "https://services.publix.com/api/v1/storelocation",
-    {
-      params: {
-        types: "R,G,H,N,S",
-        option: "",
-        count: "15",
-        includeOpenAndCloseDates: "true",
-        isWebsite: "true",
-        zipCode: `33073`,
-      },
-    }
-  );
-  const [closest] = location.data.Stores;
-  console.log(closest.SHORTNAME);
   const url = `https://services.publix.com/api/v4/savings?page=1`;
   try {
     const response = await axios.get(url);
