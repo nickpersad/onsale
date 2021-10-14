@@ -24,7 +24,8 @@ const getPublix = async () => {
 };
 
 const getWinnDixie = async () => {
-  const url = `https://dam.flippenterprise.net/flyerkit/publication/4399432/products?display_type=all&locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a`;
+  const pubId = await getWinnDixiePubId();
+  const url = `https://dam.flippenterprise.net/flyerkit/publication/${pubId}/products?display_type=all&locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a`;
   try {
     const response = await axios.get(url);
     const savings = response.data;
@@ -38,6 +39,17 @@ const getWinnDixie = async () => {
       };
     });
     return clean;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getWinnDixiePubId = async () => {
+  const url = `https://dam.flippenterprise.net/flyerkit/publications/winndixie?locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a&show_storefronts=true&postal_code=33073&store_code=0349`;
+  try {
+    const response = await axios.get(url);
+    const [{id}] = response.data;
+    return id;
   } catch (error) {
     console.error(error);
   }

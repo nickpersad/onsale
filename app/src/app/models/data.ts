@@ -15,4 +15,5 @@ export interface Item {
   savings?: string | null;
   store: string | null;
   image: string | null;
+  favorite?: boolean | null;
 }

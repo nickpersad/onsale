@@ -8,7 +8,10 @@
         <h5 class="card-title" [innerHTML]="item?.title"></h5>
         <h6 class="card-subtitle mb-2 text-muted" [innerHTML]="item?.description"></h6>
         <h2 class="card-subtitle mb-2 text-muted" [innerHTML]="item?.price || item?.savings"></h2>
-        <p class="card-text mt-auto company">
+        <p class="card-text mt-auto">
+          <fa-icon [icon]="faStar" (click)="updateFavorite(item)"></fa-icon>
+        </p>
+        <p class="card-text mt-auto company {{ item?.favorite ? 'favorite' : ''}}">
           <small class="text-muted">{{ item?.store }}</small>
         </p>
       </div>
