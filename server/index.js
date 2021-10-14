@@ -24,12 +24,12 @@ const getPublix = async () => {
 };
 
 const getWinnDixie = async () => {
-  const pubId = await getWinnDixiePubId();
-  const url = `https://dam.flippenterprise.net/flyerkit/publication/${pubId}/products?display_type=all&locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a`;
+  const pubIds = await getWinnDixiePubId();
   try {
-    const response = await axios.get(url);
-    const savings = response.data;
-    const clean = savings.map((item) => {
+    const urls = pubIds.map(async id => await axios.get(`https://dam.flippenterprise.net/flyerkit/publication/${id}/products?display_type=all&locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a`))
+    const values = await Promise.all(urls);
+    const allData = values.flatMap(value => value.data);
+    const clean = allData.map((item) => {
       return {
         title: item.name,
         description: item.description,
@@ -48,8 +48,8 @@ const getWinnDixiePubId = async () => {
   const url = `https://dam.flippenterprise.net/flyerkit/publications/winndixie?locale=en&access_token=144f255172b672dfe5bd75d2e8fb126a&show_storefronts=true&postal_code=33073&store_code=0349`;
   try {
     const response = await axios.get(url);
-    const [{id}] = response.data;
-    return id;
+    const ids = response.data.map(pub => pub.id);
+    return ids;
   } catch (error) {
     console.error(error);
   }
